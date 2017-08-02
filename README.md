@@ -152,7 +152,7 @@ Upload the concourse release and latest stemcell:
 
 ```
 bosh upload-release https://github.com/concourse/concourse/releases/download/v3.3.3/concourse-3.3.3.tgz
-bosh upload-stemcell https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3431.10-azure-hyperv-ubuntu-trusty-go_agent.tgzc
+bosh upload-stemcell https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3431.10-azure-hyperv-ubuntu-trusty-go_agent.tgz
 bosh upload-release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0 --sha1 77bfe8bdb2c3daec5b40f5116a6216badabd196c
 ```
 

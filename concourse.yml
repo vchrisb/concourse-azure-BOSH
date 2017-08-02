@@ -99,7 +99,7 @@ variables:
   options:
     is_ca: true
     common_name: internalCA
-- name: diego_bbs_client
+- name: concourse_atc
   type: certificate
   options:
     ca: service_cf_internal_ca

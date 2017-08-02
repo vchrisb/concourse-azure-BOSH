@@ -151,7 +151,7 @@ bosh update-cloud-config concourse-azure-BOSH/cloud-config.yml \
 Upload the concourse release and latest stemcell:
 
 ```
-bosh upload-release https://github.com/concourse/concourse/releases/download/v3.3.3/concourse-3.3.3.tgz
+bosh upload-release https://github.com/concourse/concourse/releases/download/v3.3.4/concourse-3.3.4.tgz
 bosh upload-stemcell https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3431.10-azure-hyperv-ubuntu-trusty-go_agent.tgz
 bosh upload-release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0 --sha1 77bfe8bdb2c3daec5b40f5116a6216badabd196c
 ```
@@ -166,8 +166,22 @@ bosh -d concourse deploy concourse-azure-BOSH/concourse.yml \
 
 ## Concourse
 
-Login using concourse cli called `fly`:
+Install concourse cli called `fly`:
+```
+wget  https://github.com/concourse/concourse/releases/download/v3.3.4/fly_linux_amd64 -O fly
+chmod +x fly
+sudo mv fly /usr/local/bin/
+```
+
+Login :
 
 ```
-fly -t ci login --concourse-url https://<concourse_domain> login -k
+fly -t lite login --concourse-url https://<concourse_domain> -k login -u admin -p $(bosh int ./deployment-vars.yml --path /concourse_admin_password)
+```
+
+Deploy sample pipeline:
+
+```
+fly -t lite set-pipeline -p hello-world -c hello.yml
+fly -t lite unpause-pipeline -p hello-world
 ```

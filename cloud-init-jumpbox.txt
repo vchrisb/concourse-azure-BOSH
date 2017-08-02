@@ -1,0 +1,21 @@
+#cloud-config
+package_update: true
+packages:
+ - build-essential
+ - zlibc
+ - zlib1g-dev
+ - ruby
+ - ruby-dev
+ - openssl
+ - libxslt-dev
+ - libxml2-dev
+ - libssl-dev
+ - libreadline6
+ - libreadline6-dev
+ - libsqlite3-dev
+ - sqlite3
+ - jq
+runcmd:
+ - "wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.28-linux-amd64 -O /tmp/bosh"
+ - "chmod +x /tmp/bosh"
+ - "mv /tmp/bosh /usr/local/bin/bosh" 

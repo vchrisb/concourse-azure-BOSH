@@ -168,14 +168,7 @@ bosh -d concourse deploy concourse-azure-BOSH/concourse.yml \
 
 ## Concourse
 
-Install concourse cli called `fly`:
-```
-wget  https://github.com/concourse/concourse/releases/download/v3.3.4/fly_linux_amd64 -O fly
-chmod +x fly
-sudo mv fly /usr/local/bin/
-```
-
-Login :
+Login to concourse with cli called `fly`::
 
 ```
 fly -t lite login --concourse-url https://<concourse_domain> -k login -u admin -p $(bosh int ./deployment-vars.yml --path /concourse_admin_password)

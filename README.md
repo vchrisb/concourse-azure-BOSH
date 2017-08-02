@@ -9,6 +9,8 @@ The repos contains the necessary files and steps to deploy [concourse](https://c
 
 ## initial setup
 
+update `CLIENT_SECRET` with a password and `CLIENT_SECRET` with some unique string e.g. `a3c56`
+
 ```
 az cloud set --name AzureCloud
 az login
@@ -184,5 +186,6 @@ Deploy [sample pipelines-6(https://concourse.ci/hello-world.html):
 ```
 fly -t lite set-pipeline -p hello-world -c concourse-azure-BOSH/hello.yml
 fly -t lite unpause-pipeline -p hello-world
-fly -t lite set-pipeline -p hello-world -c concourse-azure-BOSH/navi-pipeline.yml
+fly -t lite set-pipeline -p navi -c concourse-azure-BOSH/navi-pipeline.yml
+fly -t lite unpause-pipeline -p navi
 ```

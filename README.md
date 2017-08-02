@@ -184,5 +184,5 @@ Deploy [sample pipelines-6(https://concourse.ci/hello-world.html):
 ```
 fly -t lite set-pipeline -p hello-world -c concourse-azure-BOSH/hello.yml
 fly -t lite unpause-pipeline -p hello-world
-fly -t lite set-pipeline -p hello-world -c oncourse-azure-BOSH/navi-pipeline.yml
+fly -t lite set-pipeline -p hello-world -c concourse-azure-BOSH/navi-pipeline.yml
 ```

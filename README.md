@@ -182,3 +182,11 @@ fly -t lite unpause-pipeline -p hello-world
 fly -t lite set-pipeline -p navi -c concourse-azure-BOSH/navi-pipeline.yml
 fly -t lite unpause-pipeline -p navi
 ```
+## clean up
+
+To destroy all deployed ressources issue following commands:
+```
+az login
+az group delete --name $RESOURCE_GROUP
+az ad app delete --identifier-uris "http://BOSHAzureCPI$IDENTIFIER"
+```

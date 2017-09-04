@@ -153,9 +153,9 @@ bosh update-cloud-config concourse-azure-BOSH/cloud-config.yml \
 Upload the concourse release and latest stemcell:
 
 ```
-bosh upload-release https://github.com/concourse/concourse/releases/download/v3.3.4/concourse-3.3.4.tgz
-bosh upload-stemcell https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3431.10-azure-hyperv-ubuntu-trusty-go_agent.tgz
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0 --sha1 77bfe8bdb2c3daec5b40f5116a6216badabd196c
+bosh upload-release https://github.com/concourse/concourse/releases/download/v3.4.1/concourse-3.4.1.tgz
+bosh upload-stemcell https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent
+bosh upload-release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.3 --sha1 a153fd2b9d85d01772e9c6907b8c9e5005059c9e
 ```
 
 Finally start to deploy concourse:

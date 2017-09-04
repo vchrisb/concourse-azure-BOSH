@@ -19,6 +19,6 @@ runcmd:
  - "wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.28-linux-amd64 -O /tmp/bosh"
  - "chmod +x /tmp/bosh"
  - "mv /tmp/bosh /usr/local/bin/bosh" 
- - “wget  https://github.com/concourse/concourse/releases/download/v3.3.4/fly_linux_amd64 -O /tmp/fly”
- - "chmod +x /tmp/fly”
- - "mv /tmp/fly /usr/local/bin/fly” 
+ - "wget  https://github.com/concourse/concourse/releases/download/v3.3.4/fly_linux_amd64 -O /tmp/fly"
+ - "chmod +x /tmp/fly"
+ - "mv /tmp/fly /usr/local/bin/fly"

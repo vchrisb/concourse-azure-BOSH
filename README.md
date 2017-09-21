@@ -188,5 +188,5 @@ To destroy all deployed ressources issue following commands:
 ```
 az login
 az group delete --name $RESOURCE_GROUP
-az ad app delete --identifier-uris "http://BOSHAzureCPI$IDENTIFIER"
+az ad app delete --id "http://BOSHAzureCPI$IDENTIFIER"
 ```

@@ -47,29 +47,6 @@ az provider register --namespace Microsoft.Compute
 az group create --name $RESOURCE_GROUP --location $LOCATION
 ```
 
-## create networks
-
-This will create the necessary network security groups and network objects:
-
-```
-az network nsg create --name nsg-bosh --resource-group $RESOURCE_GROUP --location $LOCATION
-az network nsg rule create --name ssh --nsg-name nsg-bosh --resource-group $RESOURCE_GROUP --protocol Tcp --priority 300 --source-address-prefix Internet --source-port-range "*" --destination-address-prefix "*" --destination-port-range 22
-az network nsg rule create --name https-concourse --nsg-name nsg-bosh --resource-group $RESOURCE_GROUP --protocol Tcp --priority 400 --source-address-prefix Internet --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4443
-
-az network vnet create --name boshnet --resource-group $RESOURCE_GROUP --location $LOCATION --address-prefixes 10.0.0.0/16
-az network vnet subnet create --name boshsub --vnet-name boshnet --resource-group $RESOURCE_GROUP --address-prefix 10.0.0.0/24 --network-security-group nsg-bosh
-```
-
-## create load balancer
-
-This will create a Azure Loadbalancer, which will later be consumed by concourse:
-
-```
-az network lb create --name concourse-lb --resource-group $RESOURCE_GROUP --location $LOCATION --backend-pool-name concourse-web-vms --frontend-ip-name concourse-fe-ip --public-ip-address concourse-lb-ip --public-ip-address-allocation static
-az network lb probe create --lb-name concourse-lb --name tcp4443 --resource-group $RESOURCE_GROUP --protocol Tcp --port 4443
-az network lb rule create --lb-name concourse-lb --name https --resource-group $RESOURCE_GROUP --protocol Tcp --frontend-port 443 --backend-port 4443 --frontend-ip-name concourse-fe-ip --backend-pool-name concourse-web-vms
-```
-
 ## create storage
 
 This will create a storage account and create necessary containers for BOSH:
@@ -84,14 +61,18 @@ az storage container create --name stemcell --public-access blob --connection-st
 az storage table create --name stemcells --connection-string $CONNECTION_STRING
 ```
 
-## create jumpbox
+## create jumpbox ssh keys
 
 This will deploy a Ubuntu jumpbox with BOSH Cli installed:
 
 ```
 ssh-keygen -t rsa -f jumpbox -C ubuntu
+```
 
-az vm create --resource-group $RESOURCE_GROUP --name jumpbox --image UbuntuLTS --vnet-name boshnet --subnet boshsub --nsg "" --size Standard_DS2_v2 --private-ip-address 10.0.0.5 --public-ip-address-dns-name "jumpbox$IDENTIFIER" --os-disk-name jumpboxOSdisk --admin-username ubuntu --ssh-key-value ./jumpbox.pub --custom-data cloud-init-jumpbox.txt --public-ip-address-allocation static
+## create azure objects
+
+```
+az group deployment create --template-file azure-deploy.json --parameters adminSSHKey="$(cat jumpbox.pub)" --parameters CustomData="$(cat cloud-init-jumpbox.txt)" --resource-group $RESOURCE_GROUP --name boshdeploy
 ```
 
 ## bootstrap BOSH Director
@@ -153,9 +134,9 @@ bosh update-cloud-config concourse-azure-BOSH/cloud-config.yml \
 Upload the concourse release and latest stemcell:
 
 ```
-bosh upload-release https://github.com/concourse/concourse/releases/download/v3.4.1/concourse-3.4.1.tgz
+bosh upload-release https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-3.5.0.tgz
+bosh upload-release https://github.com/concourse/concourse/releases/download/v3.5.0/garden-runc-1.6.0.tgz
 bosh upload-stemcell https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent
-bosh upload-release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.3 --sha1 a153fd2b9d85d01772e9c6907b8c9e5005059c9e
 ```
 
 Finally start to deploy concourse:

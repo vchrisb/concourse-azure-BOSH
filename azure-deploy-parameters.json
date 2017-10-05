@@ -2,29 +2,8 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storageAccountName": {
-      "value": "YOUR-STORAGE-ACCOUNT-NAME"
-    },
-    "storageEndpoint": {
-      "value": "blob.core.windows.net"
-    },
     "adminSSHKey": {
-      "value": "YOUR-RSA-PUBLIC-KEY"
-    },
-    "tenantID": {
-      "value": "YOUR-TENANT-ID"
-    },
-    "clientID": {
-      "value": "YOUR-CLIENT-ID"
-    },
-    "clientSecret": {
-      "value": "YOUR-CLIENT-SECRET"
-    },
-    "vmSize": {
-      "value": "SIZE-OF-OPS-MAN-VM"
-    },
-    "adminUsername": {
-      "value": "ubuntu"
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvWRNc2+XmWOf+FaatPQEYZ2g45AvWbCTTEWlh7nW4LOFvYXyiS1PB8wYCA75gV1WPjP6cuB1lNxUl1q50pHnG0i/2Pacc+Up2A2A6GWTDpUgn51aJ1iiUvlJOlFJQVY48OHKMj9RABgWJkYWOPDo8xPJF6O5EOnbzsvtT+PIjIOfQLFk5Y+4vSZzl6WTXqg6zGw/MmIk547H06DpWwFlbO/X2ct9C1R+2chbX3oiRhRq3E2jNgSsO6F2hUxJEDhUrCuFQbk6qit3qOP8zg/QsuloJs1nh6iEy+y2oVTzLEjBrNLHq0AZxASmFIcZ0SapoeH0xH9rk9DZWQVNo/kOt ubuntu"
     }
   }
 }

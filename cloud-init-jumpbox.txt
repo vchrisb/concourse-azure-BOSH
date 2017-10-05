@@ -1,5 +1,6 @@
 #cloud-config
 package_update: true
+package_upgrade: true
 packages:
  - build-essential
  - zlibc
@@ -16,9 +17,9 @@ packages:
  - sqlite3
  - jq
 runcmd:
- - "wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.28-linux-amd64 -O /tmp/bosh"
+ - "wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.40-linux-amd64 -O /tmp/bosh"
  - "chmod +x /tmp/bosh"
  - "mv /tmp/bosh /usr/local/bin/bosh" 
- - "wget  https://github.com/concourse/concourse/releases/download/v3.4.1/fly_linux_amd64 -O /tmp/fly"
+ - "wget  https://github.com/concourse/concourse/releases/download/v3.5.0/fly_linux_amd64 -O /tmp/fly"
  - "chmod +x /tmp/fly"
  - "mv /tmp/fly /usr/local/bin/fly"

@@ -149,13 +149,13 @@ bosh -d concourse deploy concourse-azure-BOSH/concourse.yml \
 
 ## Concourse
 
-Login to concourse with cli called `fly`::
+Login to concourse with cli called `fly`:
 
 ```
 fly -t lite login --concourse-url https://<concourse_domain> -k login -u admin -p $(bosh int ./deployment-vars.yml --path /concourse_admin_password)
 ```
 
-Deploy [sample pipelines-6(https://concourse.ci/hello-world.html):
+Deploy [sample pipelines](https://concourse.ci/hello-world.html):
 
 ```
 fly -t lite set-pipeline -p hello-world -c concourse-azure-BOSH/hello.yml

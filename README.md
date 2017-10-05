@@ -16,24 +16,24 @@ az cloud set --name AzureCloud
 az login
 
 export CLIENT_SECRET="<CLIENT_SECRET>"
-export IDENTIFIER="<IDENTIFIER>"
 export SUBSCRIPTION_ID=$(az account list | jq -r ".[0].id")
 export TENANT_ID=$(az account list | jq -r ".[0].tenantId")
 export RESOURCE_GROUP="bosh_resource_group"
 export LOCATION="westeurope"
-export STORAGE_ACCOUNT="boshstorage$IDENTIFIER"
+export STORAGE_ACCOUNT="boshstorage"
+export CLIENT_NAME="BOSHAzureCPI"
 
 az account set --subscription $SUBSCRIPTION_ID
 ```
 
 ### create a service principal
 ```
-az ad app create --display-name "Service Principal for BOSH" --password $CLIENT_SECRET --homepage "http://BOSHAzureCPI" --identifier-uris "http://BOSHAzureCPI$IDENTIFIER"
+az ad app create --display-name "Service Principal for BOSH" --password $CLIENT_SECRET --homepage "http://$CLIENT_NAME" --identifier-uris "http://$CLIENT_NAME"
 
-export CLIENT_ID=$(az ad app show --id "http://BOSHAzureCPI$IDENTIFIER" | jq -r ".appId")
+export CLIENT_ID=$(az ad app show --id "http://$CLIENT_NAME" | jq -r ".appId")
 
 az ad sp create --id $CLIENT_ID
-az role assignment create --assignee "http://BOSHAzureCPI$IDENTIFIER" --role "Contributor" --scope "/subscriptions/$SUBSCRIPTION_ID"
+az role assignment create --assignee "http://$CLIENT_NAME" --role "Contributor" --scope "/subscriptions/$SUBSCRIPTION_ID"
 ```
 
 ### create resource group
@@ -169,5 +169,5 @@ To destroy all deployed ressources issue following commands:
 ```
 az login
 az group delete --name $RESOURCE_GROUP
-az ad app delete --id "http://BOSHAzureCPI$IDENTIFIER"
+az ad app delete --id "http://$CLIENT_NAME"
 ```
